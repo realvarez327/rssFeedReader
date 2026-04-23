@@ -8,8 +8,8 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface ChannelDao{
-    @Query("SELECT url FROM channels")
-    suspend fun getChannelByUrl(url:String): List<ChannelEntity>
+    @Query("SELECT * FROM channels where url=:urlGiven")
+    suspend fun getChannelByUrl(urlGiven:String): List<ChannelEntity>
 
     @Query("SELECT * FROM channels")
     suspend fun getAllChannels(): List<ChannelEntity>
@@ -17,12 +17,13 @@ interface ChannelDao{
     @Insert
     suspend fun addChannel(feedToAdd: ChannelEntity)
 
-    @Delete
-    suspend fun removeChannelById(id:Int)
+
+    @Query("DELETE FROM channels WHERE id=:idGiven")
+    suspend fun removeChannelById(idGiven:Int)
 
     @Query("DELETE FROM channels WHERE url=:urlGiven")
     suspend fun removeChannelByUrl(urlGiven:String)
 
     @Query("SELECT * FROM channels ORDER BY channelName DESC")
-    suspend fun observeChannels(): Flow<List<ChannelEntity>>
+    suspend fun observeChannels(): List<ChannelEntity>
 }

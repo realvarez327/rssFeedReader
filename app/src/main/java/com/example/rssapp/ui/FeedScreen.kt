@@ -26,8 +26,8 @@ fun FeedScreen(modifier: Modifier = Modifier, viewModel: RssViewModel) {
         Text("Feed Screen")
         val channels by viewModel.channels.collectAsStateWithLifecycle()
         channels.forEach { channel ->
-            LazyColumn{
-                items(items = channel.channelChildren){item->
+            LazyColumn {
+                items(items = channel.channelChildren) { item ->
                     ItemBubble(itemToShow = item)
                 }
             }
@@ -42,32 +42,32 @@ fun ItemBubble(
 ) {
 
     val uriHandler = LocalUriHandler.current
-        Button(
-            onClick = { uriHandler.openUri(itemToShow.link) },
-            shape = RoundedCornerShape(12.dp),
-            modifier = modifier
-                .fillMaxWidth(0.9f)
-                .background(color = MaterialTheme.colorScheme.primaryContainer)
-        ) {
-            Column() {
-                Text(
-                    text = itemToShow.headline,
-                    style = MaterialTheme.typography.headlineSmall
-                )
-                Text(
-                    text = "Written by ${itemToShow.author} at ${itemToShow.publisher}",
-                    style = MaterialTheme.typography.titleSmall
-                )
-                Text(
-                    text = itemToShow.publicationDate,
-                    style = MaterialTheme.typography.labelMedium
-                )
-                Text(
-                    text = itemToShow.description,
-                    style = MaterialTheme.typography.bodyMedium
-                )
-            }
+    Button(
+        onClick = { uriHandler.openUri(itemToShow.link) },
+        shape = RoundedCornerShape(12.dp),
+        modifier = modifier
+            .fillMaxWidth(0.9f)
+            .background(color = MaterialTheme.colorScheme.primaryContainer)
+    ) {
+        Column() {
+            Text(
+                text = itemToShow.headline,
+                style = MaterialTheme.typography.headlineSmall
+            )
+            Text(
+                text = "Written by ${itemToShow.author} at ${itemToShow.publisher}",
+                style = MaterialTheme.typography.titleSmall
+            )
+            Text(
+                text = itemToShow.publicationDate,
+                style = MaterialTheme.typography.labelMedium
+            )
+            Text(
+                text = itemToShow.description,
+                style = MaterialTheme.typography.bodyMedium
+            )
         }
+    }
 
 }
 
